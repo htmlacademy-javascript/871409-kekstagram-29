@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Валерия Малышева](https://up.htmlacademy.ru/javascript/29/user/871409).
-* Наставник: `Неизвестно`.
+* Наставник: [Антон Попов](https://htmlacademy.ru/profile/joker)
 
 ---
 
