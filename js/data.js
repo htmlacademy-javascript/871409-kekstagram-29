@@ -48,7 +48,6 @@ const getComment = () => ({
 
 const getRandomComments = Array.from({length: getRandomInteger(COMMENT_MIN, COMMENT_MAX)}, getComment);
 
-
 const getRandomArrayObject = () => ({
   name: getRandomArrayElement(NAMES),
   id: getRandomId(),
