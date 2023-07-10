@@ -1,7 +1,7 @@
 // Функция сравнения длины строки
-const checkLenghtString = (string, maxLength) => string.length <= maxLength;
+const checkLengthString = (string, maxLength) => string.length <= maxLength;
 
-checkLenghtString('maxim', 5);
+checkLengthString('maxim', 5);
 
 
 //Функция проверки полиндрома
