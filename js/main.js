@@ -1,4 +1,4 @@
-import {createMiniPhoto} from './picture.js';
+import {createMiniPhoto} from './mini-picture.js';
 import {getRandomPhoto} from './data.js';
 
 
