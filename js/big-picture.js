@@ -72,9 +72,9 @@ function closeBigPicture () {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
-  document.removeEventListener('keydown', isEscapeKey);
+  document.removeEventListener('keydown', onDocumentKeydown);
   commentsList.innerHTML = '';
-  moreButton.onclick = null;
+  //moreButton.removeEventListener('click');
 }
 
 bigPictureCloseElement.addEventListener('click', () => {
