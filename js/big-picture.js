@@ -74,7 +74,6 @@ function closeBigPicture () {
 
   document.removeEventListener('keydown', onDocumentKeydown);
   commentsList.innerHTML = '';
-  //moreButton.removeEventListener('click');
 }
 
 bigPictureCloseElement.addEventListener('click', () => {
