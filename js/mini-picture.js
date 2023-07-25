@@ -1,4 +1,3 @@
-import {getRandomPhoto} from './data.js';
 import {fillBigPicture} from './big-picture.js';
 
 
@@ -7,8 +6,8 @@ const photoTemplate = document.querySelector('#picture').content.querySelector('
 
 const photoAlbumFragment = document.createDocumentFragment();
 
-const createMiniPhoto = () => {
-  getRandomPhoto.forEach((img) => {
+const createMiniPhoto = (drawMiniPhoto) => {
+  drawMiniPhoto.forEach((img) => {
     const photoElement = photoTemplate.cloneNode(true);
     photoElement.querySelector('.picture__img').src = img.url;
     photoElement.querySelector('.picture__img').alt = img.description;
