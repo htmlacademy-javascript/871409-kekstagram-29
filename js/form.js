@@ -1,15 +1,23 @@
 import {isEscapeKey} from './util.js';
 import {resetEffect} from './slider.js';
 import {resetScale } from './scale-image.js';
+import {showError, showSuccessMessage} from './message.js';
+import {sendData} from './api.js';
 
 const MAX_HASHTAGS_COUNT = 5;
 const VALID_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
+
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadOpen = document.querySelector('.img-upload__overlay');
 const uploadCansel = document.querySelector('.img-upload__cancel');
 const uploadInput = document.querySelector('.img-upload__input');
 const textHashtag = uploadForm.querySelector('.text__hashtags');
 const commentText = uploadForm.querySelector('.text__description');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
 const body = document.body;
 
 const pristine = new Pristine(uploadForm, {
@@ -88,13 +96,36 @@ pristine.addValidator(textHashtag, paternHashtag, 'в заполнении хэ�
 pristine.addValidator(textHashtag, isValidCount, 'нельзя больше пяти хэш-тегов');
 pristine.addValidator(textHashtag, uniqueHashtag, 'хэш-теги не должны повторяться');
 
-const formSubmit = (evt) => {
-  evt.preventDefault();
-  if(pristine.valide()) {
-    uploadForm.submit();
-  }
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+const formSubmit = () => {
+  uploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    if(pristine.validate()) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(() => {
+          closeUserOverlay();
+          showSuccessMessage();
+        })
+        .catch(() => {
+          showError();
+        })
+        .finally(unblockSubmitButton);
+    }
+  });
 };
 
 uploadInput.addEventListener('change', onFileInputChange);
 uploadCansel.addEventListener('click', onCanselButtonClick);
-uploadForm.addEventListener('submit', formSubmit);
+//uploadForm.addEventListener('submit', formSubmit);
+export {formSubmit};
+
