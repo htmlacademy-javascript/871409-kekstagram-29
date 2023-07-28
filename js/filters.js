@@ -14,7 +14,7 @@ const discussedSorting = (a, b) => b.comments.length - a.comments.length;
 const removePicture = (photos) => photos.forEach((photo) => photo.remove());
 
 
-const activeFilter = (photos, currentFilter) => {
+const sortPhoto = (photos, currentFilter) => {
   if (currentFilter === filterDefault) {
     return photos;
   } else if (currentFilter === filterRandom) {
@@ -33,7 +33,7 @@ const onFilterButtonClick = (evt, photos) => {
   const activeButton = evt.target;
   activeButton.classList.add('img-filters__button--active');
   removePicture(images);
-  createMiniPhoto(activeFilter(photos, activeButton));
+  createMiniPhoto(sortPhoto(photos, activeButton));
 };
 
 const setDebouncedSort = (photos) => {
