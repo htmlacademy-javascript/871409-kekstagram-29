@@ -106,7 +106,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-const formSubmit = () => {
+const onFormSubmit = () => {
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     if(pristine.validate()) {
@@ -127,5 +127,5 @@ const formSubmit = () => {
 uploadInput.addEventListener('change', onFileInputChange);
 uploadCansel.addEventListener('click', onCanselButtonClick);
 //uploadForm.addEventListener('submit', formSubmit);
-export {formSubmit};
+export {onFormSubmit};
 

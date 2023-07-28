@@ -21,11 +21,11 @@ const createComment = (comment) => {
   return commentElement;
 };
 
-const renderComments = (comments) => {
+const createRenderComments = (comments) => {
   const fragment = document.createDocumentFragment();
   const moreComments = () => {
     commentCount += COMMENTS_LIMIT;
-    renderComments(comments);
+    createRenderComments(comments);
   };
   comments.slice(visibleComments, commentCount).forEach((comment) => {
     fragment.append(createComment(comment));
@@ -85,7 +85,7 @@ const fillBigPicture = (post) => {
   commentCount = COMMENTS_LIMIT;
   commentsList.innerHTML = '';
   renderBigPicture(post);
-  renderComments(post.comments);
+  createRenderComments(post.comments);
 
   document.addEventListener('keydown', onDocumentKeydown);
 };
