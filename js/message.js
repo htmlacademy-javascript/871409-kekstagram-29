@@ -1,4 +1,5 @@
 import {isEscapeKey} from './util.js';
+import {onDocumentKeydown} from './form.js';
 
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -8,7 +9,6 @@ const errorInner = errorPopup.querySelector('.error-inner');
 const errorButton = errorPopup.querySelector('.error__button');
 const successInner = successPopup.querySelector('.success__inner');
 const successButton = successPopup.querySelector('.success__button');
-
 
 const closeSuccessPopup = () => {
   successPopup.remove();
@@ -33,6 +33,7 @@ const closeErrorPopup = () => {
   errorPopup.remove();
   document.removeEventListener('keydown', onErrorKeydown);
   document.removeEventListener('click', onErrorClick);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 function onErrorKeydown (evt) {
@@ -64,6 +65,7 @@ const showError = () => {
   });
   document.addEventListener('keydown', onErrorKeydown);
   document.addEventListener('click', onErrorClick);
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 export {showError, showSuccessMessage};

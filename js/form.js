@@ -44,6 +44,12 @@ const showModal = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
+function ifInTextFieldFocused () {
+  if (document.activeElement === textHashtag || document.activeElement === commentText) {
+    return true;
+  }
+}
+
 function onDocumentKeydown (evt) {
   if (isEscapeKey(evt) && !ifInTextFieldFocused()) {
     evt.preventDefault();
@@ -62,12 +68,6 @@ const onCanselButtonClick = () => {
 const onFileInputChange = () => {
   showModal();
 };
-
-function ifInTextFieldFocused () {
-  if (document.activeElement === textHashtag || document.activeElement === commentText) {
-    return true;
-  }
-}
 
 const stringArray = (string) => {
   const tags = string.trim().split(' ').filter((tag) => tag.trim().length);
@@ -126,6 +126,5 @@ const onFormSubmit = () => {
 
 uploadInput.addEventListener('change', onFileInputChange);
 uploadCansel.addEventListener('click', onCanselButtonClick);
-//uploadForm.addEventListener('submit', formSubmit);
-export {onFormSubmit};
+export {onFormSubmit, onDocumentKeydown};
 

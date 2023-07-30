@@ -9,6 +9,7 @@ const commentItem = document.querySelector('.social__comment');
 const commentsList = document.querySelector('.social__comments');
 const currentCommentsCountText = document.querySelector('.social__comment-count');
 const moreButton = bigPicture.querySelector('.comments-loader');
+//const commentsCount = document.querySelector('.comments-count');
 
 const visibleComments = 0;
 
