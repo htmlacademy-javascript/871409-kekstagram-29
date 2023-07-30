@@ -6,7 +6,6 @@ import {showAlert} from './util.js';
 import {showSortButtons, setDebouncedSort} from './filters.js';
 import './upload-photo.js';
 
-
 getData()
   .then((pictures) => {
     createMiniPhoto(pictures);
