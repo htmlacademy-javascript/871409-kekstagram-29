@@ -4,10 +4,10 @@ const COMMENTS_LIMIT = 5;
 let commentCount = COMMENTS_LIMIT;
 
 const bigPicture = document.querySelector('.big-picture');
-const bigPictureCloseElement = document.querySelector('.big-picture__cancel');
-const commentItem = document.querySelector('.social__comment');
+const bigPictureCansel = bigPicture.querySelector('.big-picture__cancel');
 const commentsList = document.querySelector('.social__comments');
-const currentCommentsCountText = document.querySelector('.social__comment-count');
+const commentItem = commentsList.querySelector('.social__comment');
+const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const moreButton = bigPicture.querySelector('.comments-loader');
 
 const visibleComments = 0;
@@ -23,7 +23,7 @@ const createComment = (comment) => {
 
 const createRenderComments = (comments) => {
   const fragment = document.createDocumentFragment();
-  const moreComments = () => {
+  const getMoreComments = () => {
     commentCount += COMMENTS_LIMIT;
     createRenderComments(comments);
   };
@@ -38,10 +38,10 @@ const createRenderComments = (comments) => {
     moreButton.classList.add('hidden');
   } else {
     moreButton.classList.remove('hidden');
-    moreButton.onclick = moreComments;
+    moreButton.onclick = getMoreComments;
   }
 
-  currentCommentsCountText.textContent = `${commentCount} из ${comments.length} комментариев`;
+  socialCommentCount.textContent = `${commentCount} из ${comments.length} комментариев`;
 };
 
 
@@ -75,7 +75,7 @@ function closeBigPicture () {
   commentsList.innerHTML = '';
 }
 
-bigPictureCloseElement.addEventListener('click', () => {
+bigPictureCansel.addEventListener('click', () => {
   closeBigPicture();
 });
 
