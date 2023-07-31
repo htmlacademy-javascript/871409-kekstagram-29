@@ -37,7 +37,7 @@ const closeUserOverlay = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-const showModal = () => {
+const openUserOverlay = () => {
   uploadOpen.classList.remove('hidden');
   body.classList.add('modal-open');
   uploadCansel.addEventListener('click', closeUserOverlay);
@@ -57,18 +57,6 @@ function onDocumentKeydown (evt) {
   }
 }
 
-uploadCansel.addEventListener('click', () => {
-  closeUserOverlay();
-});
-
-const onCanselButtonClick = () => {
-  closeUserOverlay();
-};
-
-const onFileInputChange = () => {
-  showModal();
-};
-
 const stringArray = (string) => {
   const tags = string.trim().split(' ').filter((tag) => tag.trim().length);
   return tags;
@@ -76,7 +64,7 @@ const stringArray = (string) => {
 
 const isValidHashtag = (tag) => VALID_HASHTAG.test(tag);
 
-const paternHashtag = (string) => {
+const isPaternHashtag = (string) => {
   const tags = stringArray(string);
   return tags.every(isValidHashtag);
 };
@@ -86,15 +74,15 @@ const isValidCount = (string) => {
   return tags.length <= MAX_HASHTAGS_COUNT;
 };
 
-const uniqueHashtag = (string) => {
+const isUniqueHashtag = (string) => {
   const tags = stringArray(string);
   const tagsTolowerCase = tags.map((tag) => tag.toLowerCase());
   return tagsTolowerCase.length === new Set(tagsTolowerCase).size;
 };
 
-pristine.addValidator(textHashtag, paternHashtag, 'в заполнении хэш-тега допущены ошибки');
+pristine.addValidator(textHashtag, isPaternHashtag, 'в заполнении хэш-тега допущены ошибки');
 pristine.addValidator(textHashtag, isValidCount, 'нельзя больше пяти хэш-тегов');
-pristine.addValidator(textHashtag, uniqueHashtag, 'хэш-теги не должны повторяться');
+pristine.addValidator(textHashtag, isUniqueHashtag, 'хэш-теги не должны повторяться');
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -124,7 +112,7 @@ const onFormSubmit = () => {
   });
 };
 
-uploadInput.addEventListener('change', onFileInputChange);
-uploadCansel.addEventListener('click', onCanselButtonClick);
+uploadInput.addEventListener('change', openUserOverlay);
+uploadCansel.addEventListener('click', closeUserOverlay);
 export {onFormSubmit, onDocumentKeydown};
 
