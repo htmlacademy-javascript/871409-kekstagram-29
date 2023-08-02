@@ -6,7 +6,7 @@ let commentCount = COMMENTS_LIMIT;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const commentsList = document.querySelector('.social__comments');
-const commentItem = commentsList.querySelector('.social__comment');
+const socialComment = commentsList.querySelector('.social__comment');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const moreButton = bigPicture.querySelector('.comments-loader');
 
@@ -14,11 +14,11 @@ const visibleComments = 0;
 
 
 const createComment = (comment) => {
-  const commentElement = commentItem.cloneNode(true);
-  commentElement.querySelector('.social__picture').src = comment.avatar;
-  commentElement.querySelector('.social__picture').alt = comment.name;
-  commentElement.querySelector('.social__text').textContent = comment.message;
-  return commentElement;
+  const commentItem = socialComment.cloneNode(true);
+  commentItem.querySelector('.social__picture').src = comment.avatar;
+  commentItem.querySelector('.social__picture').alt = comment.name;
+  commentItem.querySelector('.social__text').textContent = comment.message;
+  return commentItem;
 };
 
 const createRenderComments = (comments) => {
@@ -44,15 +44,6 @@ const createRenderComments = (comments) => {
   socialCommentCount.textContent = `${commentCount} из ${comments.length} комментариев`;
 };
 
-
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeBigPicture();
-  }
-};
-
-
 const renderBigPicture = (img) => {
   commentsList.innerHTML = '';
   commentCount = COMMENTS_LIMIT;
@@ -66,15 +57,27 @@ const openBigPicture = () => {
   document.body.classList.add('modal-open');
   commentsList.innerHTML = '';
   document.addEventListener('keydown', onDocumentKeydown);
-  bigPictureCancel.addEventListener('click', closeBigPicture);
+  bigPictureCancel.addEventListener('click', buttonCloseClickHandler);
 };
 
-function closeBigPicture () {
+const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   commentsList.innerHTML = '';
-  bigPictureCancel.removeEventListener('click', closeBigPicture);
+  bigPictureCancel.removeEventListener('click', buttonCloseClickHandler);
+};
+
+function buttonCloseClickHandler (evt) {
+  evt.preventDefault();
+  closeBigPicture();
+}
+
+function onDocumentKeydown (evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeBigPicture();
+  }
 }
 
 const fillBigPicture = (post) => {
