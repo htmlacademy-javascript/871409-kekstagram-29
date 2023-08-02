@@ -8,16 +8,16 @@ const photoAlbumFragment = document.createDocumentFragment();
 
 const createMiniPhoto = (drawMiniPhoto) => {
   drawMiniPhoto.forEach((img) => {
-    const photoElement = photoTemplate.cloneNode(true);
-    photoElement.querySelector('.picture__img').src = img.url;
-    photoElement.querySelector('.picture__img').alt = img.description;
-    photoElement.querySelector('.picture__likes').textContent = img.likes;
-    photoElement.querySelector('.picture__comments').textContent = img.comments.length;
-    photoElement.addEventListener('click', (event) => {
+    const photoItem = photoTemplate.cloneNode(true);
+    photoItem.querySelector('.picture__img').src = img.url;
+    photoItem.querySelector('.picture__img').alt = img.description;
+    photoItem.querySelector('.picture__likes').textContent = img.likes;
+    photoItem.querySelector('.picture__comments').textContent = img.comments.length;
+    photoItem.addEventListener('click', (event) => {
       event.preventDefault();
       fillBigPicture(img);
     });
-    photos.appendChild(photoElement);
+    photos.appendChild(photoItem);
     photos.appendChild(photoAlbumFragment);
   });
 };
