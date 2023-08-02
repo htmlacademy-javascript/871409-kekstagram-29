@@ -13,7 +13,7 @@ const SubmitButtonText = {
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadOpen = document.querySelector('.img-upload__overlay');
-const uploadCansel = document.querySelector('.img-upload__cancel');
+const uploadCancel = document.querySelector('.img-upload__cancel');
 const uploadInput = document.querySelector('.img-upload__input');
 const textHashtag = uploadForm.querySelector('.text__hashtags');
 const commentText = uploadForm.querySelector('.text__description');
@@ -26,6 +26,12 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'img-upload__field-wrapper--error'
 });
 
+const openUserOverlay = () => {
+  uploadOpen.classList.remove('hidden');
+  body.classList.add('modal-open');
+  document.addEventListener('keydown', onDocumentKeydown);
+};
+
 const closeUserOverlay = () => {
   uploadForm.reset();
   resetEffect();
@@ -33,16 +39,9 @@ const closeUserOverlay = () => {
   pristine.reset();
   uploadOpen.classList.add('hidden');
   body.classList.remove('modal-open');
-  uploadCansel.removeEventListener('click', closeUserOverlay);
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-const openUserOverlay = () => {
-  uploadOpen.classList.remove('hidden');
-  body.classList.add('modal-open');
-  uploadCansel.addEventListener('click', closeUserOverlay);
-  document.addEventListener('keydown', onDocumentKeydown);
-};
 
 function ifInTextFieldFocused () {
   if (document.activeElement === textHashtag || document.activeElement === commentText) {
@@ -113,6 +112,6 @@ const onFormSubmit = () => {
 };
 
 uploadInput.addEventListener('change', openUserOverlay);
-uploadCansel.addEventListener('click', closeUserOverlay);
+uploadCancel.addEventListener('click', closeUserOverlay);
 export {onFormSubmit, onDocumentKeydown};
 

@@ -4,7 +4,7 @@ const COMMENTS_LIMIT = 5;
 let commentCount = COMMENTS_LIMIT;
 
 const bigPicture = document.querySelector('.big-picture');
-const bigPictureCansel = bigPicture.querySelector('.big-picture__cancel');
+const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const commentsList = document.querySelector('.social__comments');
 const commentItem = commentsList.querySelector('.social__comment');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
@@ -66,6 +66,7 @@ const openBigPicture = () => {
   document.body.classList.add('modal-open');
   commentsList.innerHTML = '';
   document.addEventListener('keydown', onDocumentKeydown);
+  bigPictureCancel.addEventListener('click', closeBigPicture);
 };
 
 function closeBigPicture () {
@@ -73,11 +74,8 @@ function closeBigPicture () {
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   commentsList.innerHTML = '';
+  bigPictureCancel.removeEventListener('click', closeBigPicture);
 }
-
-bigPictureCansel.addEventListener('click', () => {
-  closeBigPicture();
-});
 
 const fillBigPicture = (post) => {
   openBigPicture();
